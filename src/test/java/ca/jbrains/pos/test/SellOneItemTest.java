@@ -9,10 +9,10 @@ public class SellOneItemTest {
     @Test
     public void productFound() throws Exception {
         Display display = new Display();
-        Sale sale = new Sale(io.vavr.collection.HashMap.ofAll(new HashMap<String, String>() {{
-            put("12345", "RON 6.50");
-            put("23456", "RON 12.75");
-        }}), display);
+        Sale sale = new Sale(io.vavr.collection.HashMap.of(
+            "12345", "RON 6.50",
+            "23456", "RON 12.75"
+        ), display);
 
         sale.onBarcode("12345");
 
