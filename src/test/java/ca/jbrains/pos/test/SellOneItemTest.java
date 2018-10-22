@@ -72,7 +72,7 @@ public class SellOneItemTest {
     }
 
     public static class Sale {
-        private Display display;
+        private final Display display;
         private final Map<String, String> pricesByBarcode;
 
         public Sale(Display display, Map<String, String> pricesByBarcode) {
