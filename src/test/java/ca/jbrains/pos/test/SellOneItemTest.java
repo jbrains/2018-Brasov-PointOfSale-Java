@@ -80,12 +80,12 @@ public class SellOneItemTest {
     }
 
     public static class Sale {
-        private final Map<String, String> pricesByBarcode;
+        private final Map<String, String> oldPricesByBarcode;
         private final Display display;
 
         public Sale(io.vavr.collection.HashMap<String, String> pricesByBarcode, HashMap<String, String> oldPricesByBarcode, Display display) {
             this.display = display;
-            this.pricesByBarcode = oldPricesByBarcode;
+            this.oldPricesByBarcode = oldPricesByBarcode;
         }
 
         public void onBarcode(String barcode) {
@@ -94,7 +94,7 @@ public class SellOneItemTest {
                 return;
             }
 
-            String priceAsText = pricesByBarcode.get(barcode);
+            String priceAsText = oldPricesByBarcode.get(barcode);
             if (priceAsText == null)
                 display.setText(String.format("Product not found: %s", barcode));
             else
