@@ -50,8 +50,6 @@ public class SellOneItemTest {
     public void emptyBarcode() throws Exception {
         Display display = new Display();
         Sale sale = new Sale(new HashMap<String, String>() {{
-            put("12345", "RON 6.50");
-            put("23456", "RON 12.75");
         }}, display);
 
         sale.onBarcode("");
