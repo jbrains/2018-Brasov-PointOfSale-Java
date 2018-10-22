@@ -83,11 +83,6 @@ public class SellOneItemTest {
         private final Map<String, String> pricesByBarcode;
         private final Display display;
 
-        public Sale(Map<String, String> pricesByBarcode, Display display) {
-            this.display = display;
-            this.pricesByBarcode = pricesByBarcode;
-        }
-
         public Sale(io.vavr.collection.HashMap<String, String> pricesByBarcode, HashMap<String, String> oldPricesByBarcode, Display display) {
             this.display = display;
             this.pricesByBarcode = oldPricesByBarcode;
