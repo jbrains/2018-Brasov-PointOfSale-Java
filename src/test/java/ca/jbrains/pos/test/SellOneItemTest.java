@@ -82,6 +82,8 @@ public class SellOneItemTest {
                 return;
             }
 
+            // I don't like the name 'peek()'. It seems very strange.
+            // At least 'onEmpty()' explains itself well.
             pricesByBarcode.get(barcode)
                     .peek(display::setText)
                     .onEmpty(() -> display.setText(String.format("Product not found: %s", barcode)));
