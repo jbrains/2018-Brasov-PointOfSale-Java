@@ -80,12 +80,14 @@ public class SellOneItemTest {
     }
 
     public static class Sale {
+        private final io.vavr.collection.HashMap<String, String> pricesByBarcode;
         private final Map<String, String> oldPricesByBarcode;
         private final Display display;
 
         public Sale(io.vavr.collection.HashMap<String, String> pricesByBarcode, HashMap<String, String> oldPricesByBarcode, Display display) {
-            this.display = display;
+            this.pricesByBarcode = pricesByBarcode;
             this.oldPricesByBarcode = oldPricesByBarcode;
+            this.display = display;
         }
 
         public void onBarcode(String barcode) {
