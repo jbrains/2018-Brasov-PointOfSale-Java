@@ -4,7 +4,6 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.HashMap;
-import java.util.Map;
 
 public class SellOneItemTest {
     @Test
@@ -13,10 +12,7 @@ public class SellOneItemTest {
         Sale sale = new Sale(io.vavr.collection.HashMap.ofAll(new HashMap<String, String>() {{
             put("12345", "RON 6.50");
             put("23456", "RON 12.75");
-        }}), new HashMap<String, String>() {{
-            put("12345", "RON 6.50");
-            put("23456", "RON 12.75");
-        }}, display);
+        }}), display);
 
         sale.onBarcode("12345");
 
@@ -29,10 +25,7 @@ public class SellOneItemTest {
         Sale sale = new Sale(io.vavr.collection.HashMap.ofAll(new HashMap<String, String>() {{
             put("12345", "RON 6.50");
             put("23456", "RON 12.75");
-        }}), new HashMap<String, String>() {{
-            put("12345", "RON 6.50");
-            put("23456", "RON 12.75");
-        }}, display);
+        }}), display);
 
         sale.onBarcode("23456");
 
@@ -45,10 +38,7 @@ public class SellOneItemTest {
         Sale sale = new Sale(io.vavr.collection.HashMap.ofAll(new HashMap<String, String>() {{
             put("12345", "RON 6.50");
             put("23456", "RON 12.75");
-        }}), new HashMap<String, String>() {{
-            put("12345", "RON 6.50");
-            put("23456", "RON 12.75");
-        }}, display);
+        }}), display);
 
         sale.onBarcode("99999");
 
@@ -59,8 +49,7 @@ public class SellOneItemTest {
     public void emptyBarcode() throws Exception {
         Display display = new Display();
         Sale sale = new Sale(io.vavr.collection.HashMap.ofAll(new HashMap<String, String>() {{
-        }}), new HashMap<String, String>() {{
-        }}, display);
+        }}), display);
 
         sale.onBarcode("");
 
@@ -81,12 +70,10 @@ public class SellOneItemTest {
 
     public static class Sale {
         private final io.vavr.collection.HashMap<String, String> pricesByBarcode;
-        private final Map<String, String> oldPricesByBarcode;
         private final Display display;
 
-        public Sale(io.vavr.collection.HashMap<String, String> pricesByBarcode, HashMap<String, String> oldPricesByBarcode, Display display) {
+        public Sale(io.vavr.collection.HashMap<String, String> pricesByBarcode, Display display) {
             this.pricesByBarcode = pricesByBarcode;
-            this.oldPricesByBarcode = oldPricesByBarcode;
             this.display = display;
         }
 
