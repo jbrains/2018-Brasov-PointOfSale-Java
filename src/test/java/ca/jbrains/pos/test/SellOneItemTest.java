@@ -1,17 +1,17 @@
 package ca.jbrains.pos.test;
 
+import io.vavr.collection.HashMap;
+import io.vavr.collection.Map;
 import org.junit.Assert;
 import org.junit.Test;
-
-import java.util.HashMap;
 
 public class SellOneItemTest {
     @Test
     public void productFound() throws Exception {
         Display display = new Display();
-        Sale sale = new Sale(io.vavr.collection.HashMap.of(
-            "12345", "RON 6.50",
-            "23456", "RON 12.75"
+        Sale sale = new Sale(HashMap.of(
+                "12345", "RON 6.50",
+                "23456", "RON 12.75"
         ), display);
 
         sale.onBarcode("12345");
@@ -22,10 +22,10 @@ public class SellOneItemTest {
     @Test
     public void anotherProductFound() throws Exception {
         Display display = new Display();
-        Sale sale = new Sale(io.vavr.collection.HashMap.ofAll(new HashMap<String, String>() {{
-            put("12345", "RON 6.50");
-            put("23456", "RON 12.75");
-        }}), display);
+        Sale sale = new Sale(HashMap.of(
+                "12345", "RON 6.50",
+                "23456", "RON 12.75"
+        ), display);
 
         sale.onBarcode("23456");
 
@@ -35,10 +35,10 @@ public class SellOneItemTest {
     @Test
     public void productNotFound() throws Exception {
         Display display = new Display();
-        Sale sale = new Sale(io.vavr.collection.HashMap.ofAll(new HashMap<String, String>() {{
-            put("12345", "RON 6.50");
-            put("23456", "RON 12.75");
-        }}), display);
+        Sale sale = new Sale(HashMap.of(
+                "12345", "RON 6.50",
+                "23456", "RON 12.75"
+        ), display);
 
         sale.onBarcode("99999");
 
@@ -48,8 +48,7 @@ public class SellOneItemTest {
     @Test
     public void emptyBarcode() throws Exception {
         Display display = new Display();
-        Sale sale = new Sale(io.vavr.collection.HashMap.ofAll(new HashMap<String, String>() {{
-        }}), display);
+        Sale sale = new Sale(HashMap.empty(), display);
 
         sale.onBarcode("");
 
@@ -69,10 +68,10 @@ public class SellOneItemTest {
     }
 
     public static class Sale {
-        private final io.vavr.collection.HashMap<String, String> pricesByBarcode;
+        private final Map<String, String> pricesByBarcode;
         private final Display display;
 
-        public Sale(io.vavr.collection.HashMap<String, String> pricesByBarcode, Display display) {
+        public Sale(Map<String, String> pricesByBarcode, Display display) {
             this.pricesByBarcode = pricesByBarcode;
             this.display = display;
         }
