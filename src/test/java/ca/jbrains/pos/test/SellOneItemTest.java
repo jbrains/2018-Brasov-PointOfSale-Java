@@ -96,7 +96,7 @@ public class SellOneItemTest {
                 return;
             }
 
-            String priceAsText = oldPricesByBarcode.get(barcode);
+            String priceAsText = pricesByBarcode.getOrElse(barcode, null);
             if (priceAsText == null)
                 display.setText(String.format("Product not found: %s", barcode));
             else
