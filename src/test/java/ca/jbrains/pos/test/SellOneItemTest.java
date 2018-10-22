@@ -10,7 +10,10 @@ public class SellOneItemTest {
     @Test
     public void productFound() throws Exception {
         Display display = new Display();
-        Sale sale = new Sale(new HashMap<String, String>() {{
+        Sale sale = new Sale(io.vavr.collection.HashMap.ofAll(new HashMap<String, String>() {{
+            put("12345", "RON 6.50");
+            put("23456", "RON 12.75");
+        }}), new HashMap<String, String>() {{
             put("12345", "RON 6.50");
             put("23456", "RON 12.75");
         }}, display);
@@ -23,7 +26,10 @@ public class SellOneItemTest {
     @Test
     public void anotherProductFound() throws Exception {
         Display display = new Display();
-        Sale sale = new Sale(new HashMap<String, String>() {{
+        Sale sale = new Sale(io.vavr.collection.HashMap.ofAll(new HashMap<String, String>() {{
+            put("12345", "RON 6.50");
+            put("23456", "RON 12.75");
+        }}), new HashMap<String, String>() {{
             put("12345", "RON 6.50");
             put("23456", "RON 12.75");
         }}, display);
@@ -36,7 +42,10 @@ public class SellOneItemTest {
     @Test
     public void productNotFound() throws Exception {
         Display display = new Display();
-        Sale sale = new Sale(new HashMap<String, String>() {{
+        Sale sale = new Sale(io.vavr.collection.HashMap.ofAll(new HashMap<String, String>() {{
+            put("12345", "RON 6.50");
+            put("23456", "RON 12.75");
+        }}), new HashMap<String, String>() {{
             put("12345", "RON 6.50");
             put("23456", "RON 12.75");
         }}, display);
@@ -49,7 +58,8 @@ public class SellOneItemTest {
     @Test
     public void emptyBarcode() throws Exception {
         Display display = new Display();
-        Sale sale = new Sale(new HashMap<String, String>() {{
+        Sale sale = new Sale(io.vavr.collection.HashMap.ofAll(new HashMap<String, String>() {{
+        }}), new HashMap<String, String>() {{
         }}, display);
 
         sale.onBarcode("");
@@ -76,6 +86,11 @@ public class SellOneItemTest {
         public Sale(Map<String, String> pricesByBarcode, Display display) {
             this.display = display;
             this.pricesByBarcode = pricesByBarcode;
+        }
+
+        public Sale(io.vavr.collection.HashMap<String, String> pricesByBarcode, HashMap<String, String> oldPricesByBarcode, Display display) {
+            this.display = display;
+            this.pricesByBarcode = oldPricesByBarcode;
         }
 
         public void onBarcode(String barcode) {
