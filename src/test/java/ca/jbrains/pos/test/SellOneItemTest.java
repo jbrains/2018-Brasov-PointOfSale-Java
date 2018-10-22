@@ -82,11 +82,9 @@ public class SellOneItemTest {
                 return;
             }
 
-            String priceAsText = pricesByBarcode.getOrElse(barcode, null);
-            if (priceAsText == null)
-                display.setText(String.format("Product not found: %s", barcode));
-            else
-                display.setText(priceAsText);
+            pricesByBarcode.get(barcode)
+                    .peek(display::setText)
+                    .onEmpty(() -> display.setText(String.format("Product not found: %s", barcode)));
         }
     }
 }
