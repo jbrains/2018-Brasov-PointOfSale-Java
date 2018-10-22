@@ -1,7 +1,6 @@
 package ca.jbrains.pos.test;
 
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 
 public class SellOneItemTest {
@@ -16,7 +15,6 @@ public class SellOneItemTest {
     }
 
     @Test
-    @Ignore("refactoring")
     public void anotherProductFound() throws Exception {
         Display display = new Display();
         Sale sale = new Sale(display);
@@ -46,7 +44,10 @@ public class SellOneItemTest {
         }
 
         public void onBarcode(String barcode) {
-            display.setText("RON 6.50");
+            if ("12345".equals(barcode))
+                display.setText("RON 6.50");
+            else
+                display.setText("RON 12.75");
         }
     }
 }
