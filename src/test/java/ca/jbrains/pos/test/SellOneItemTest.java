@@ -49,7 +49,7 @@ public class SellOneItemTest {
     @Test
     public void emptyBarcode() throws Exception {
         Display display = new Display();
-        Sale sale = new Sale(new Catalog(null), display);
+        Sale sale = new Sale(null, display);
 
         sale.onBarcode("");
 
