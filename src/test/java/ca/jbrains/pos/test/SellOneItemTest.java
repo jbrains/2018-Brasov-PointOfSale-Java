@@ -80,15 +80,31 @@ public class SellOneItemTest {
         public void onBarcode(String barcode) {
             // REFACTOR Move Guard Clause up into the client?
             if ("".equals(barcode)) {
-                display.setText("Scanning error: empty barcode");
+                displayEmptyBarcodeMessage();
                 return;
             }
 
-            String priceAsText = pricesByBarcode.get(barcode);
+            String priceAsText = findPrice(barcode);
             if (priceAsText == null)
-                display.setText(String.format("Product not found: %s", barcode));
+                displayProductNotFoundMessage(barcode);
             else
-                display.setText(priceAsText);
+                displayPrice(priceAsText);
+        }
+
+        private String findPrice(String barcode) {
+            return pricesByBarcode.get(barcode);
+        }
+
+        private void displayPrice(String priceAsText) {
+            display.setText(priceAsText);
+        }
+
+        private void displayProductNotFoundMessage(String barcode) {
+            display.setText(String.format("Product not found: %s", barcode));
+        }
+
+        private void displayEmptyBarcodeMessage() {
+            display.setText("Scanning error: empty barcode");
         }
     }
 }
