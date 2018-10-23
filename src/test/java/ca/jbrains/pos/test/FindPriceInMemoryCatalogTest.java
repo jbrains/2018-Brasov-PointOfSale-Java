@@ -4,6 +4,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 
 public class FindPriceInMemoryCatalogTest {
@@ -24,8 +25,16 @@ public class FindPriceInMemoryCatalogTest {
 
     @Test
     public void productNotFound() throws Exception {
-        Catalog catalog = new InMemoryCatalog(Collections.emptyMap());
-        Assert.assertEquals(null, catalog.findPrice("12345"));
+        Catalog catalog = createCatalogWithout("::unknown barcode::");
+        Assert.assertEquals(null, catalog.findPrice("::unknown barcode::"));
+    }
+
+    private Catalog createCatalogWithout(String barcodeToAvoid) {
+        return new InMemoryCatalog(new HashMap<String, Price>() {{
+            put("not " + barcodeToAvoid, Price.euroCents(1));
+            put("certainly not " + barcodeToAvoid, Price.euroCents(2));
+            put("anything except " + barcodeToAvoid + ", you idiot", Price.euroCents(3));
+        }});
     }
 
     public static class InMemoryCatalog implements Catalog {
