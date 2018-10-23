@@ -1,39 +1,41 @@
 package ca.jbrains.pos.test;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
 public class SellOneItemControllerTest {
+
+    private Catalog catalog;
+    private Display display;
+
+    @Before
+    public void setUp() throws Exception {
+        catalog = Mockito.mock(Catalog.class);
+        display = Mockito.mock(Display.class);
+    }
+
     @Test
     public void productFound() throws Exception {
-        Catalog catalog = Mockito.mock(Catalog.class);
-        Display display = Mockito.mock(Display.class);
-
         Price matchingPrice = Price.euroCents(650);
-        Mockito.when(catalog.findPrice("12345")).thenReturn(matchingPrice);
+        Mockito.when(catalog.findPrice("::barcode with matching price::")).thenReturn(matchingPrice);
 
-        new SellOneItemController(catalog, display).onBarcode("12345");
+        new SellOneItemController(catalog, display).onBarcode("::barcode with matching price::");
 
         Mockito.verify(display).displayPrice(matchingPrice);
     }
 
     @Test
     public void productNotFound() throws Exception {
-        Catalog catalog = Mockito.mock(Catalog.class);
-        Display display = Mockito.mock(Display.class);
+        Mockito.when(catalog.findPrice("::barcode without matching price::")).thenReturn(null);
 
-        Mockito.when(catalog.findPrice("12345")).thenReturn(null);
+        new SellOneItemController(catalog, display).onBarcode("::barcode without matching price::");
 
-        new SellOneItemController(catalog, display).onBarcode("12345");
-
-        Mockito.verify(display).displayProductNotFoundMessage("12345");
+        Mockito.verify(display).displayProductNotFoundMessage("::barcode without matching price::");
     }
 
     @Test
     public void emptyBarcode() throws Exception {
-        Catalog catalog = Mockito.mock(Catalog.class);
-        Display display = Mockito.mock(Display.class);
-
         new SellOneItemController(catalog, display).onBarcode("");
 
         Mockito.verify(display).displayScannedEmptyBarcodeMessage();
