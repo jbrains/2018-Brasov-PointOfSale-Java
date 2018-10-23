@@ -9,14 +9,22 @@ import java.util.Map;
 public class FindPriceInMemoryCatalogTest {
     @Test
     public void productFound() throws Exception {
-        Price matchingPrice = Price.euroCents(795);
-        InMemoryCatalog catalog = new InMemoryCatalog(Collections.singletonMap("12345", matchingPrice));
-        Assert.assertEquals(matchingPrice, catalog.findPrice("12345"));
+        Price matchingPrice = createAnyValidPrice();
+        Catalog catalog = createCatalogWith("::known barcode::", matchingPrice);
+        Assert.assertEquals(matchingPrice, catalog.findPrice("::known barcode::"));
+    }
+
+    private Price createAnyValidPrice() {
+        return Price.euroCents(795);
+    }
+
+    private Catalog createCatalogWith(String barcode, Price matchingPrice) {
+        return new InMemoryCatalog(Collections.singletonMap(barcode, matchingPrice));
     }
 
     @Test
     public void productNotFound() throws Exception {
-        InMemoryCatalog catalog = new InMemoryCatalog(Collections.emptyMap());
+        Catalog catalog = new InMemoryCatalog(Collections.emptyMap());
         Assert.assertEquals(null, catalog.findPrice("12345"));
     }
 
