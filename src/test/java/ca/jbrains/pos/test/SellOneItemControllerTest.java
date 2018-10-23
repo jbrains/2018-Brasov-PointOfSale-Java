@@ -61,7 +61,8 @@ public class SellOneItemControllerTest {
         }
 
         public void onBarcode(String barcode) {
-            if("".equals(barcode)) {
+            // REFACTOR Guard Clause. Move up the call stack.
+            if ("".equals(barcode)) {
                 display.displayScannedEmptyBarcodeMessage();
                 return;
             }
