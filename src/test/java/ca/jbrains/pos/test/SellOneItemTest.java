@@ -49,8 +49,7 @@ public class SellOneItemTest {
     @Test
     public void emptyBarcode() throws Exception {
         Display display = new Display();
-        Sale sale = new Sale(new HashMap<String, String>() {{
-        }}, display);
+        Sale sale = new Sale(null, display);
 
         sale.onBarcode("");
 
@@ -79,6 +78,7 @@ public class SellOneItemTest {
         }
 
         public void onBarcode(String barcode) {
+            // REFACTOR Move Guard Clause up into the client?
             if ("".equals(barcode)) {
                 display.setText("Scanning error: empty barcode");
                 return;
