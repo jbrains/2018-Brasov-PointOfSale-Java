@@ -7,29 +7,19 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-public class FindPriceInMemoryCatalogTest {
-    @Test
-    public void productFound() throws Exception {
-        Price matchingPrice = createAnyValidPrice();
-        Catalog catalog = createCatalogWith("::known barcode::", matchingPrice);
-        Assert.assertEquals(matchingPrice, catalog.findPrice("::known barcode::"));
+public class FindPriceInMemoryCatalogTest extends FindPriceInCatalogContract {
+    @Override
+    protected Catalog createCatalogWith(String barcode, Price matchingPrice) {
+        return new InMemoryCatalog(new HashMap<String, Price>() {{
+            put("not " + barcode, Price.euroCents(1));
+            put("certainly not " + barcode, Price.euroCents(2));
+            put(barcode, matchingPrice);
+            put("anything except " + barcode + ", you idiot", Price.euroCents(3));
+        }});
     }
 
-    private Price createAnyValidPrice() {
-        return Price.euroCents(795);
-    }
-
-    private Catalog createCatalogWith(String barcode, Price matchingPrice) {
-        return new InMemoryCatalog(Collections.singletonMap(barcode, matchingPrice));
-    }
-
-    @Test
-    public void productNotFound() throws Exception {
-        Catalog catalog = createCatalogWithout("::unknown barcode::");
-        Assert.assertEquals(null, catalog.findPrice("::unknown barcode::"));
-    }
-
-    private Catalog createCatalogWithout(String barcodeToAvoid) {
+    @Override
+    protected Catalog createCatalogWithout(String barcodeToAvoid) {
         return new InMemoryCatalog(new HashMap<String, Price>() {{
             put("not " + barcodeToAvoid, Price.euroCents(1));
             put("certainly not " + barcodeToAvoid, Price.euroCents(2));
