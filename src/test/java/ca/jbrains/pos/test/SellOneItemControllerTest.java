@@ -24,10 +24,16 @@ public class SellOneItemControllerTest {
         void displayPrice(Price price);
     }
     public static class SellOneItemController {
+        private final Catalog catalog;
+        private final Display display;
+
         public SellOneItemController(Catalog catalog, Display display) {
+            this.catalog = catalog;
+            this.display = display;
         }
 
         public void onBarcode(String barcode) {
+            display.displayPrice(catalog.findPrice(barcode));
         }
     }
     public static class Price {
