@@ -19,7 +19,7 @@ public class SellOneItemControllerTest {
         Price matchingPrice = Price.euroCents(650);
         Mockito.when(catalog.findPrice("::barcode with matching price::")).thenReturn(matchingPrice);
 
-        new SellOneItemController(catalog, display).onBarcode("::barcode with matching price::");
+        new SellOneItemController(this.catalog, display).onBarcode("::barcode with matching price::");
 
         Mockito.verify(display).displayPrice(matchingPrice);
     }
@@ -76,9 +76,4 @@ public class SellOneItemControllerTest {
         }
     }
 
-    public static class Price {
-        public static Price euroCents(int euroCents) {
-            return new Price();
-        }
-    }
 }
