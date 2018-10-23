@@ -5,7 +5,6 @@ import org.junit.Test;
 import org.mockito.Mockito;
 
 public class SellOneItemControllerTest {
-
     private Catalog catalog;
     private Display display;
 
