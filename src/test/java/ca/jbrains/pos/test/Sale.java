@@ -9,12 +9,10 @@ public class Sale {
     private final Catalog catalog;
     private final SellOneItemTest.Display display;
     private final List<String> reservedItems;
-    private String reservedItem;
 
     public Sale(Catalog catalog, SellOneItemTest.Display display) {
         this.catalog = catalog;
         this.display = display;
-        this.reservedItem  = null;
         this.reservedItems = new ArrayList<String>();
     }
 
@@ -30,7 +28,6 @@ public class Sale {
             display.displayProductNotFoundMessage(barcode);
         else {
             display.displayPrice(priceAsText);
-            reservedItem = priceAsText;
             reservedItems.add(priceAsText);
         }
     }
