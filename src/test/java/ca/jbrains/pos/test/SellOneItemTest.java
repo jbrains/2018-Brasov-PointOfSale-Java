@@ -73,29 +73,9 @@ public class SellOneItemTest {
         public void displayEmptyBarcodeMessage() {
             this.text = "Scanning error: empty barcode";
         }
-    }
 
-    public static class Sale {
-        private final Catalog catalog;
-        private final Display display;
-
-        public Sale(Catalog catalog, Display display) {
-            this.catalog = catalog;
-            this.display = display;
-        }
-
-        public void onBarcode(String barcode) {
-            // REFACTOR Move Guard Clause up into the client?
-            if ("".equals(barcode)) {
-                display.displayEmptyBarcodeMessage();
-                return;
-            }
-
-            String priceAsText = catalog.findPrice(barcode);
-            if (priceAsText == null)
-                display.displayProductNotFoundMessage(barcode);
-            else
-                display.displayPrice(priceAsText);
+        public void displayTotal(String totalAsText) {
+            this.text = String.format("Total: %s", totalAsText);
         }
     }
 }
