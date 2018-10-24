@@ -32,7 +32,6 @@ public class Sale {
 
     public void onTotal() {
         Price total = (reservedItems.isEmpty()) ? Price.bani(0) : reservedItems.get(0);
-        String totalAsText = total.formatPrice();
-        display.displayTotal(totalAsText);
+        display.displayTotal(total.formatPrice());
     }
 }
