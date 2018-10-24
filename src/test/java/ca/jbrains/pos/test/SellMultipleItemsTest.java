@@ -52,7 +52,6 @@ public class SellMultipleItemsTest {
     }
 
     @Test
-    @Ignore("refactoring")
     public void severalItemsScannedAndAllProductsFound() throws Exception {
         SellOneItemTest.Display display = new SellOneItemTest.Display();
         Sale sale = new Sale(new Catalog(new HashMap<>() {{
@@ -62,7 +61,7 @@ public class SellMultipleItemsTest {
             put("45678", Price.bani(1766));
         }}), display);
         sale.onBarcode("23456");
-        sale.onBarcode("34567");
+        sale.onBarcode("45678");
         sale.onBarcode("12345");
 
         sale.onTotal();

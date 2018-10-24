@@ -31,7 +31,14 @@ public class Sale {
     }
 
     public void onTotal() {
-        Price total = (reservedItems.isEmpty()) ? Price.bani(0) : reservedItems.get(0);
+        Price total = tallyReservedItemsPrices(reservedItems);
         display.displayTotal(total.formatPrice());
+    }
+
+    private Price tallyReservedItemsPrices(List<Price> reservedItems) {
+        if (reservedItems.isEmpty()) return Price.bani(0);
+        else if (reservedItems.size() == 1) return this.reservedItems.get(0);
+        else return Price.bani(io.vavr.collection.List.ofAll(reservedItems).map(each -> each.inBani()).fold(0, (sum, each) -> sum + each));
+
     }
 }

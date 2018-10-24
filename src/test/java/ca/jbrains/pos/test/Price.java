@@ -23,4 +23,8 @@ public class Price {
     public String formatPrice() {
         return toString();
     }
+
+    public int inBani() {
+        return bani;
+    }
 }
