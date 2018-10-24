@@ -9,10 +9,11 @@ public class SellOneItemTest {
     @Test
     public void productFound() throws Exception {
         Display display = new Display();
-        Sale sale = new Sale(new Catalog(new HashMap<String, String>() {{
-            put("12345", "RON 6.50");
-            put("23456", "RON 12.75");
-        }}), display);
+        HashMap<String, Price> pricesByBarcode = new HashMap<>() {{
+            put("12345", Price.bani(650));
+            put("23456", Price.bani(1275));
+        }};
+        Sale sale = new Sale(Catalog.createCatalog(pricesByBarcode), display);
 
         sale.onBarcode("12345");
 
