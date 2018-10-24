@@ -1,6 +1,5 @@
 package ca.jbrains.pos.test;
 
-import java.util.HashMap;
 import java.util.Map;
 
 public class Catalog {
