@@ -10,9 +10,9 @@ public class SellMultipleItemsTest {
     @Test
     public void noItemsScanned() throws Exception {
         SellOneItemTest.Display display = new SellOneItemTest.Display();
-        Sale sale = new Sale(new Catalog(new HashMap<String, String>() {{
-            put("12345", "RON 6.50");
-            put("23456", "RON 12.75");
+        Sale sale = new Sale(Catalog.createCatalog(new HashMap<>() {{
+            put("12345", Price.bani(650));
+            put("23456", Price.bani(1275));
         }}), display);
 
         // no items scanned
@@ -25,9 +25,9 @@ public class SellMultipleItemsTest {
     @Test
     public void oneItemScannedButNoProductsFound() throws Exception {
         SellOneItemTest.Display display = new SellOneItemTest.Display();
-        Sale sale = new Sale(new Catalog(new HashMap<String, String>() {{
-            put("12345", "RON 6.50");
-            put("23456", "RON 12.75");
+        Sale sale = new Sale(Catalog.createCatalog(new HashMap<>() {{
+            put("12345", Price.bani(650));
+            put("23456", Price.bani(1275));
         }}), display);
 
         sale.onBarcode("::barcode not found::");
@@ -39,9 +39,9 @@ public class SellMultipleItemsTest {
     @Test
     public void oneItemScannedAndProductFound() throws Exception {
         SellOneItemTest.Display display = new SellOneItemTest.Display();
-        Sale sale = new Sale(new Catalog(new HashMap<String, String>() {{
-            put("12345", "RON 6.50");
-            put("23456", "RON 12.75");
+        Sale sale = new Sale(Catalog.createCatalog(new HashMap<>() {{
+            put("12345", Price.bani(650));
+            put("23456", Price.bani(1275));
         }}), display);
 
         sale.onBarcode("23456");
@@ -55,11 +55,11 @@ public class SellMultipleItemsTest {
     @Ignore("refactoring")
     public void severalItemsScannedAndAllProductsFound() throws Exception {
         SellOneItemTest.Display display = new SellOneItemTest.Display();
-        Sale sale = new Sale(new Catalog(new HashMap<String, String>() {{
-            put("12345", "RON 6.50");
-            put("23456", "RON 12.75");
-            put("34567", "RON 31.90");
-            put("45678", "RON 17.66");
+        Sale sale = new Sale(Catalog.createCatalog(new HashMap<>() {{
+            put("12345", Price.bani(650));
+            put("23456", Price.bani(1275));
+            put("34567", Price.bani(3190));
+            put("45678", Price.bani(1766));
         }}), display);
         sale.onBarcode("23456");
         sale.onBarcode("34567");

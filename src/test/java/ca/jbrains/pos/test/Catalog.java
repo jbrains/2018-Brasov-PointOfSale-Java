@@ -16,7 +16,7 @@ public class Catalog {
         return formattedPricesByBarcode;
     }
 
-    public static Catalog createCatalog(HashMap<String, Price> pricesByBarcode) {
+    public static Catalog createCatalog(Map<String, Price> pricesByBarcode) {
         return new Catalog(convertBaniToString(pricesByBarcode));
     }
 
