@@ -2,15 +2,20 @@ package ca.jbrains.pos.test;
 
 import io.vavr.Tuple2;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Sale {
     private final Catalog catalog;
     private final SellOneItemTest.Display display;
+    private final List<String> reservedItems;
     private String reservedItem;
 
     public Sale(Catalog catalog, SellOneItemTest.Display display) {
         this.catalog = catalog;
         this.display = display;
         this.reservedItem  = null;
+        this.reservedItems = new ArrayList<String>();
     }
 
     public void onBarcode(String barcode) {
@@ -26,11 +31,12 @@ public class Sale {
         else {
             display.displayPrice(priceAsText);
             reservedItem = priceAsText;
+            reservedItems.add(priceAsText);
         }
     }
 
     public void onTotal() {
-        String totalAsText = (reservedItem == null) ? "RON 0.00" : reservedItem;
+        String totalAsText = (reservedItems.isEmpty()) ? "RON 0.00" : reservedItems.get(0);
         display.displayTotal(totalAsText);
     }
 }
