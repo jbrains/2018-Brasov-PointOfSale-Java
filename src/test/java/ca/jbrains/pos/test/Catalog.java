@@ -5,9 +5,11 @@ import java.util.Map;
 
 public class Catalog {
     private final Map<String, String> formattedPricesByBarcode;
+    private final Map<String, Price> pricesByBarcode;
 
-    private Catalog(Map<String, String> formattedPricesByBarcode) {
+    private Catalog(Map<String, String> formattedPricesByBarcode, Map<String, Price> pricesByBarcode) {
         this.formattedPricesByBarcode = formattedPricesByBarcode;
+        this.pricesByBarcode = pricesByBarcode;
     }
 
     private static Map<String, String> convertBaniToString(Map<String, Price> pricesByBarcode) {
@@ -17,10 +19,11 @@ public class Catalog {
     }
 
     public static Catalog createCatalog(Map<String, Price> pricesByBarcode) {
-        return new Catalog(convertBaniToString(pricesByBarcode));
+        return new Catalog(convertBaniToString(pricesByBarcode), pricesByBarcode);
     }
 
     public String findPrice(String barcode) {
-        return formattedPricesByBarcode.get(barcode);
+        Price price = pricesByBarcode.get(barcode);
+        return price == null ? null : price.toString();
     }
 }
