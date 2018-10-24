@@ -31,7 +31,7 @@ public class Sale {
     }
 
     public void onTotal() {
-        String totalAsText = (reservedItems.isEmpty()) ? "RON 0.00" : reservedItems.get(0).formatPrice();
+        String totalAsText = (reservedItems.isEmpty()) ? Price.bani(0).formatPrice() : reservedItems.get(0).formatPrice();
         display.displayTotal(totalAsText);
     }
 }
