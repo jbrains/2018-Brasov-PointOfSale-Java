@@ -6,7 +6,7 @@ import java.util.Map;
 public class Catalog {
     private final Map<String, String> formattedPricesByBarcode;
 
-    public Catalog(Map<String, String> formattedPricesByBarcode) {
+    private Catalog(Map<String, String> formattedPricesByBarcode) {
         this.formattedPricesByBarcode = formattedPricesByBarcode;
     }
 
