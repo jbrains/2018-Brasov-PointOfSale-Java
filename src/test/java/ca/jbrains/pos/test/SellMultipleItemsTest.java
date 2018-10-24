@@ -20,4 +20,18 @@ public class SellMultipleItemsTest {
 
         Assert.assertEquals("Total: RON 0.00", display.getText());
     }
+
+    @Test
+    public void oneItemScannedButNoProductsFound() throws Exception {
+        SellOneItemTest.Display display = new SellOneItemTest.Display();
+        Sale sale = new Sale(new Catalog(new HashMap<String, String>() {{
+            put("12345", "RON 6.50");
+            put("23456", "RON 12.75");
+        }}), display);
+
+        sale.onBarcode("::barcode not found::");
+        sale.onTotal();
+
+        Assert.assertEquals("Total: RON 0.00", display.getText());
+    }
 }
