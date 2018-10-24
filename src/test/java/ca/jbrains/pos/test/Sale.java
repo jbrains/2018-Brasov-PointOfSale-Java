@@ -6,12 +6,12 @@ import java.util.List;
 public class Sale {
     private final Catalog catalog;
     private final SellOneItemTest.Display display;
-    private final List<String> reservedItems;
+    private final List<Price> reservedItems;
 
     public Sale(Catalog catalog, SellOneItemTest.Display display) {
         this.catalog = catalog;
         this.display = display;
-        this.reservedItems = new ArrayList<String>();
+        this.reservedItems = new ArrayList<Price>();
     }
 
     public void onBarcode(String barcode) {
@@ -26,12 +26,12 @@ public class Sale {
             display.displayProductNotFoundMessage(barcode);
         else {
             display.displayPrice(price.toString());
-            reservedItems.add(price.toString());
+            reservedItems.add(price);
         }
     }
 
     public void onTotal() {
-        String totalAsText = (reservedItems.isEmpty()) ? "RON 0.00" : reservedItems.get(0);
+        String totalAsText = (reservedItems.isEmpty()) ? "RON 0.00" : reservedItems.get(0).toString();
         display.displayTotal(totalAsText);
     }
 }
