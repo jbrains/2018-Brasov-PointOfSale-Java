@@ -1,12 +1,16 @@
 package ca.jbrains.pos.test;
 
+import io.vavr.Tuple2;
+
 public class Sale {
     private final Catalog catalog;
     private final SellOneItemTest.Display display;
+    private String reservedItem;
 
     public Sale(Catalog catalog, SellOneItemTest.Display display) {
         this.catalog = catalog;
         this.display = display;
+        this.reservedItem  = null;
     }
 
     public void onBarcode(String barcode) {
@@ -19,11 +23,14 @@ public class Sale {
         String priceAsText = catalog.findPrice(barcode);
         if (priceAsText == null)
             display.displayProductNotFoundMessage(barcode);
-        else
+        else {
             display.displayPrice(priceAsText);
+            reservedItem = priceAsText;
+        }
     }
 
     public void onTotal() {
-        display.displayTotal("RON 0.00");
+        String totalAsText = (reservedItem == null) ? "RON 0.00" : reservedItem;
+        display.displayTotal(totalAsText);
     }
 }
