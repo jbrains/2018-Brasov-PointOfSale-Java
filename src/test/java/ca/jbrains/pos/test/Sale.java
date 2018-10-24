@@ -25,17 +25,13 @@ public class Sale {
         if (price == null)
             display.displayProductNotFoundMessage(barcode);
         else {
-            display.displayPrice(formatPrice(price));
+            display.displayPrice(price.formatPrice());
             reservedItems.add(price);
         }
     }
 
     public void onTotal() {
-        String totalAsText = (reservedItems.isEmpty()) ? "RON 0.00" : formatPrice(reservedItems.get(0));
+        String totalAsText = (reservedItems.isEmpty()) ? "RON 0.00" : reservedItems.get(0).formatPrice();
         display.displayTotal(totalAsText);
-    }
-
-    private String formatPrice(Price price) {
-        return price.toString();
     }
 }

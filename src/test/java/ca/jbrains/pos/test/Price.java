@@ -19,4 +19,8 @@ public class Price {
     public String toString() {
         return String.format("RON %.2f", inLei());
     }
+
+    public String formatPrice() {
+        return toString();
+    }
 }
