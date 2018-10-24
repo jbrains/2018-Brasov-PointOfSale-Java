@@ -1,7 +1,5 @@
 package ca.jbrains.pos.test;
 
-import io.vavr.Tuple2;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,12 +21,12 @@ public class Sale {
             return;
         }
 
-        String priceAsText = catalog.findPrice(barcode);
-        if (priceAsText == null)
+        Price price = catalog.findPrice(barcode);
+        if (price == null)
             display.displayProductNotFoundMessage(barcode);
         else {
-            display.displayPrice(priceAsText);
-            reservedItems.add(priceAsText);
+            display.displayPrice(price.toString());
+            reservedItems.add(price.toString());
         }
     }
 

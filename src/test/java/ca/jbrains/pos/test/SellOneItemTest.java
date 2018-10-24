@@ -4,12 +4,13 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class SellOneItemTest {
     @Test
     public void productFound() throws Exception {
         Display display = new Display();
-        Sale sale = new Sale(Catalog.createCatalog(new HashMap<>() {{
+        Sale sale = new Sale(new Catalog(new HashMap<>() {{
             put("12345", Price.bani(650));
             put("23456", Price.bani(1275));
         }}), display);
@@ -22,7 +23,7 @@ public class SellOneItemTest {
     @Test
     public void anotherProductFound() throws Exception {
         Display display = new Display();
-        Sale sale = new Sale(Catalog.createCatalog(new HashMap<String, Price>() {{
+        Sale sale = new Sale(new Catalog((Map<String, Price>) new HashMap<String, Price>() {{
             put("12345", Price.bani(650));
             put("23456", Price.bani(1275));
         }}), display);
@@ -35,7 +36,7 @@ public class SellOneItemTest {
     @Test
     public void productNotFound() throws Exception {
         Display display = new Display();
-        Sale sale = new Sale(Catalog.createCatalog(new HashMap<>() {{
+        Sale sale = new Sale(new Catalog(new HashMap<>() {{
             put("12345", Price.bani(650));
             put("23456", Price.bani(1275));
         }}), display);
