@@ -49,4 +49,22 @@ public class SellMultipleItemsTest {
 
         Assert.assertEquals("Total: RON 12.75", display.getText());
     }
+
+    @Test
+    public void severalItemsScannedAndAllProductsFound() throws Exception {
+        SellOneItemTest.Display display = new SellOneItemTest.Display();
+        Sale sale = new Sale(new Catalog(new HashMap<String, String>() {{
+            put("12345", "RON 6.50");
+            put("23456", "RON 12.75");
+            put("34567", "RON 31.90");
+            put("45678", "RON 17.66");
+        }}), display);
+        sale.onBarcode("23456");
+        sale.onBarcode("34567");
+        sale.onBarcode("12345");
+
+        sale.onTotal();
+
+        Assert.assertEquals("Total: RON 36.91", display.getText());
+    }
 }
