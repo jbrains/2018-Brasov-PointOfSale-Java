@@ -33,27 +33,21 @@ public class Sale {
     }
 
     public void onTotal() {
-        Price total = tallyReservedItemsPrices(reservedItems);
+        Price total = sum(new PriceFoldableValue(), io.vavr.collection.List.ofAll(reservedItems));
         display.displayTotal(total.formatPrice());
     }
 
-    private Price tallyReservedItemsPrices(List<Price> reservedItems) {
-        if (reservedItems.isEmpty()) return Price.bani(0);
-        else if (reservedItems.size() == 1) return this.reservedItems.get(0);
-        else return sum(new PriceFoldFactory(), io.vavr.collection.List.ofAll(reservedItems));
+    public static <T> T sum(FoldableValue<T> foldableValue, io.vavr.collection.List<T> items) {
+        return items.fold(foldableValue.zero(), foldableValue.accumulate());
     }
 
-    public static <T> T sum(FoldFactory<T> foldFactory, io.vavr.collection.List<T> ts) {
-        return ts.fold(foldFactory.zero(), foldFactory.accumulate());
-    }
-
-    interface FoldFactory<T> {
+    interface FoldableValue<T> {
         T zero();
 
         Function2<T, T, T> accumulate();
     }
 
-    public static class PriceFoldFactory implements FoldFactory<Price> {
+    public static class PriceFoldableValue implements FoldableValue<Price> {
         @Override
         public Price zero() {
             return Price.zero();
