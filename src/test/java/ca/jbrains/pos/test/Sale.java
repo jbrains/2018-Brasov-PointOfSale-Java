@@ -1,5 +1,7 @@
 package ca.jbrains.pos.test;
 
+import io.vavr.Function2;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,6 +40,28 @@ public class Sale {
     private Price tallyReservedItemsPrices(List<Price> reservedItems) {
         if (reservedItems.isEmpty()) return Price.bani(0);
         else if (reservedItems.size() == 1) return this.reservedItems.get(0);
-        else return Price.bani(io.vavr.collection.List.ofAll(reservedItems).map(each -> each.inBani()).fold(0, (sum, each) -> sum + each));
+        else return sum(new PriceFoldFactory(), io.vavr.collection.List.ofAll(reservedItems));
+    }
+
+    public static <T> T sum(FoldFactory<T> foldFactory, io.vavr.collection.List<T> ts) {
+        return ts.fold(foldFactory.zero(), foldFactory.accumulate());
+    }
+
+    interface FoldFactory<T> {
+        T zero();
+
+        Function2<T, T, T> accumulate();
+    }
+
+    public static class PriceFoldFactory implements FoldFactory<Price> {
+        @Override
+        public Price zero() {
+            return Price.zero();
+        }
+
+        @Override
+        public Function2<Price, Price, Price> accumulate() {
+            return Function2.of(Price::add);
+        }
     }
 }

@@ -11,8 +11,16 @@ public class Price {
         return new Price(bani);
     }
 
+    public static Price zero() {
+        return bani(0);
+    }
+
     private double inLei() {
         return bani / 100.0d;
+    }
+
+    public Price add(Price that) {
+        return Price.bani(this.bani + that.bani);
     }
 
     @Override
