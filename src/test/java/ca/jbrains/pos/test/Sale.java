@@ -1,6 +1,7 @@
 package ca.jbrains.pos.test;
 
 import io.vavr.Function2;
+import io.vavr.collection.Foldable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,18 +34,14 @@ public class Sale {
     }
 
     public void onTotal() {
-        Price total = sum(new PriceFoldableValue(), io.vavr.collection.List.ofAll(reservedItems));
+        Price total = EvenMoreFoldable.sum(new PriceFoldableValue(), io.vavr.collection.List.ofAll(reservedItems));
         display.displayTotal(total.formatPrice());
-    }
-
-    public static <T> T sum(FoldableValue<T> foldableValue, io.vavr.collection.List<T> items) {
-        return items.fold(foldableValue.zero(), foldableValue.accumulate());
     }
 
     interface FoldableValue<T> {
         T zero();
 
-        Function2<T, T, T> accumulate();
+        Function2<T, T, T> add();
     }
 
     public static class PriceFoldableValue implements FoldableValue<Price> {
@@ -54,8 +51,23 @@ public class Sale {
         }
 
         @Override
-        public Function2<Price, Price, Price> accumulate() {
+        public Function2<Price, Price, Price> add() {
             return Function2.of(Price::add);
+        }
+    }
+
+    public static class EvenMoreFoldable {
+        /**
+         * A generalization of sum(), which allows the client to compute the sum of a Foldable
+         * (usually a collection) by describing zero and how to add items.
+         *
+         * You can use this with your Value Objects by writing a FoldableValue adapter for your type.
+         *
+         * @param foldableValue A definition of zero and add
+         * @param items
+         */
+        public static <T> T sum(FoldableValue<T> foldableValue, Foldable<T> items) {
+            return items.fold(foldableValue.zero(), foldableValue.add());
         }
     }
 }
