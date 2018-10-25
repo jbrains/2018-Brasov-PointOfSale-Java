@@ -39,6 +39,5 @@ public class Sale {
         if (reservedItems.isEmpty()) return Price.bani(0);
         else if (reservedItems.size() == 1) return this.reservedItems.get(0);
         else return Price.bani(io.vavr.collection.List.ofAll(reservedItems).map(each -> each.inBani()).fold(0, (sum, each) -> sum + each));
-
     }
 }
