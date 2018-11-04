@@ -1,5 +1,7 @@
 package ca.jbrains.pos.test;
 
+import io.vavr.control.Option;
+
 import java.util.Map;
 
 public class Catalog {
@@ -9,7 +11,10 @@ public class Catalog {
         this.pricesByBarcode = pricesByBarcode;
     }
 
-    public Price findPrice(String barcode) {
+    public Price findPrice_old(String barcode) {
         return pricesByBarcode.get(barcode);
+    }
+    public Option<Price> findPrice(String barcode) {
+        return Option.of(findPrice_old(barcode));
     }
 }
