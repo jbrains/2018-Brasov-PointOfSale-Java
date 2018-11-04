@@ -1,6 +1,10 @@
 package ca.jbrains.pos.test;
 
+import ca.jbrains.pos.test.Sale.Monoid;
+import io.vavr.Function2;
+
 public class Price {
+    public static final PriceMonoid monoid = new PriceMonoid();
     private final int bani;
 
     public Price(int bani) {
@@ -34,5 +38,21 @@ public class Price {
 
     public int inBani() {
         return bani;
+    }
+
+    public static PriceMonoid monoid() {
+        return monoid;
+    }
+
+    public static class PriceMonoid implements Monoid<Price> {
+        @Override
+        public Price zero() {
+            return Price.zero();
+        }
+
+        @Override
+        public Function2<Price, Price, Price> add() {
+            return Function2.of(Price::add);
+        }
     }
 }

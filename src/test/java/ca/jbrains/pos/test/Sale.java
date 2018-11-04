@@ -24,36 +24,24 @@ public class Sale {
             return;
         }
 
-        Price price = catalog.findPrice(barcode);
-        if (price == null)
+        Price nullablePrice = catalog.findPrice_old(barcode);
+        if (nullablePrice == null)
             display.displayProductNotFoundMessage(barcode);
         else {
-            display.displayPrice(price.formatPrice());
-            reservedItems.add(price);
+            display.displayPrice(nullablePrice.formatPrice());
+            reservedItems.add(nullablePrice);
         }
     }
 
     public void onTotal() {
-        Price total = EvenMoreFoldable.sum(new PriceFoldableValue(), io.vavr.collection.List.ofAll(reservedItems));
+        Price total = EvenMoreFoldable.sum(io.vavr.collection.List.ofAll(reservedItems), Price.monoid());
         display.displayTotal(total.formatPrice());
     }
 
-    interface FoldableValue<T> {
+    interface Monoid<T> {
         T zero();
 
         Function2<T, T, T> add();
-    }
-
-    public static class PriceFoldableValue implements FoldableValue<Price> {
-        @Override
-        public Price zero() {
-            return Price.zero();
-        }
-
-        @Override
-        public Function2<Price, Price, Price> add() {
-            return Function2.of(Price::add);
-        }
     }
 
     public static class EvenMoreFoldable {
@@ -61,13 +49,13 @@ public class Sale {
          * A generalization of sum(), which allows the client to compute the sum of a Foldable
          * (usually a collection) by describing zero and how to add items.
          *
-         * You can use this with your Value Objects by writing a FoldableValue adapter for your type.
+         * You can use this with your Value Objects by writing a Monoid adapter for your type.
          *
-         * @param foldableValue A definition of zero and add
          * @param items
+         * @param monoid A definition of zero and add
          */
-        public static <T> T sum(FoldableValue<T> foldableValue, Foldable<T> items) {
-            return items.fold(foldableValue.zero(), foldableValue.add());
+        public static <T> T sum(Foldable<T> items, Monoid<T> monoid) {
+            return items.fold(monoid.zero(), monoid.add());
         }
     }
 }
