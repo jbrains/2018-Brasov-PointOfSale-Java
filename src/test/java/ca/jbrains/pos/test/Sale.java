@@ -2,6 +2,7 @@ package ca.jbrains.pos.test;
 
 import io.vavr.Function2;
 import io.vavr.collection.Foldable;
+import io.vavr.control.Option;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,13 +25,17 @@ public class Sale {
             return;
         }
 
-        Price nullablePrice = catalog.findPrice_old(barcode);
-        if (nullablePrice == null)
-            display.displayProductNotFoundMessage(barcode);
-        else {
-            display.displayPrice(nullablePrice.formatPrice());
-            reservedItems.add(nullablePrice);
-        }
+        Option<Price> maybePrice = catalog.findPrice(barcode);
+        maybePrice.toEither(barcode).bimap(
+                b -> {
+                    display.displayProductNotFoundMessage(b);
+                    return null;
+                },
+                price -> {
+                    display.displayPrice(price.formatPrice());
+                    reservedItems.add(price);
+                    return null;
+                });
     }
 
     public void onTotal() {
@@ -48,7 +53,7 @@ public class Sale {
         /**
          * A generalization of sum(), which allows the client to compute the sum of a Foldable
          * (usually a collection) by describing zero and how to add items.
-         *
+         * <p>
          * You can use this with your Value Objects by writing a Monoid adapter for your type.
          *
          * @param items

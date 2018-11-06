@@ -11,10 +11,7 @@ public class Catalog {
         this.pricesByBarcode = pricesByBarcode;
     }
 
-    public Price findPrice_old(String barcode) {
-        return pricesByBarcode.get(barcode);
-    }
     public Option<Price> findPrice(String barcode) {
-        return Option.of(findPrice_old(barcode));
+        return Option.of(pricesByBarcode.get(barcode));
     }
 }
