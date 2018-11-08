@@ -6,6 +6,7 @@ import io.vavr.control.Option;
 import java.util.Map;
 
 public class Catalog {
+    // REFACTOR Replace with Vavr Map
     private final Map<String, Price> pricesByBarcode;
 
     public Catalog(Map<String, Price> pricesByBarcode) {
