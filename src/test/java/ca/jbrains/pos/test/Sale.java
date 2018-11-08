@@ -15,7 +15,7 @@ public class Sale {
     public Sale(Catalog catalog, SellOneItemTest.Display display) {
         this.catalog = catalog;
         this.display = display;
-        this.reservedItems = new ArrayList<Price>();
+        this.reservedItems = new ArrayList<>();
     }
 
     public void onBarcode(String barcode) {
