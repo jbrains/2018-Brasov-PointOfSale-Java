@@ -1,5 +1,6 @@
 package ca.jbrains.pos.test;
 
+import io.vavr.control.Either;
 import io.vavr.control.Option;
 
 import java.util.Map;
@@ -13,5 +14,9 @@ public class Catalog {
 
     public Option<Price> findPrice(String barcode) {
         return Option.of(pricesByBarcode.get(barcode));
+    }
+
+    public Either<String, Price> lookupBarcode(String barcode) {
+        return findPrice(barcode).toEither(barcode);
     }
 }

@@ -2,7 +2,7 @@ package ca.jbrains.pos.test;
 
 import io.vavr.Function2;
 import io.vavr.collection.Foldable;
-import io.vavr.control.Option;
+import io.vavr.control.Either;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,17 +25,18 @@ public class Sale {
             return;
         }
 
-        Option<Price> maybePrice = catalog.findPrice(barcode);
-        maybePrice.toEither(barcode).bimap(
-                b -> {
-                    display.displayProductNotFoundMessage(b);
-                    return null;
-                },
-                price -> {
-                    display.displayPrice(price.formatPrice());
-                    reservedItems.add(price);
-                    return null;
-                });
+        catalog.lookupBarcode(barcode)
+                .peek(this::acceptPurchaseRequest)
+                .orElseRun(this::rejectPurchaseRequest);
+    }
+
+    private void rejectPurchaseRequest(String barcode) {
+        display.displayProductNotFoundMessage(barcode);
+    }
+
+    private void acceptPurchaseRequest(Price price) {
+        display.displayPrice(price.formatPrice());
+        reservedItems.add(price);
     }
 
     public void onTotal() {
