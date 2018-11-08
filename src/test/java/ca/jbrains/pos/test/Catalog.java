@@ -12,11 +12,7 @@ public class Catalog {
         this.pricesByBarcode = pricesByBarcode;
     }
 
-    public Option<Price> findPrice(String barcode) {
-        return Option.of(pricesByBarcode.get(barcode));
-    }
-
     public Either<String, Price> lookupBarcode(String barcode) {
-        return findPrice(barcode).toEither(barcode);
+        return Option.of(pricesByBarcode.get(barcode)).toEither(barcode);
     }
 }
