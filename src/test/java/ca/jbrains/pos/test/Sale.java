@@ -34,13 +34,13 @@ public class Sale {
     }
 
     private void acceptPurchaseRequest(Price price) {
-        display.displayPrice(price.formatPrice());
+        display.displayFormattedPrice(price.formatPrice());
         reservedItems.add(price);
     }
 
     public void onTotal() {
         Price total = EvenMoreFoldable.sum(io.vavr.collection.List.ofAll(reservedItems), Price.monoid());
-        display.displayTotal(total.formatPrice());
+        display.displayFormattedTotal(total.formatPrice());
     }
 
     interface Monoid<T> {

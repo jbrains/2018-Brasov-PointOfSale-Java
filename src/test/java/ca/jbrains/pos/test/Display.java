@@ -26,7 +26,7 @@ public class Display {
         return text;
     }
 
-    public void displayPrice(String priceAsText) {
+    public void displayFormattedPrice(String priceAsText) {
         this.text = priceAsText;
     }
 
@@ -38,7 +38,7 @@ public class Display {
         this.text = "Scanning error: empty barcode";
     }
 
-    public void displayTotal(String totalAsText) {
+    public void displayFormattedTotal(String totalAsText) {
         this.text = String.format("Total: %s", totalAsText);
     }
 }
