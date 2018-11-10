@@ -7,13 +7,13 @@ import java.util.Map;
 
 public class Catalog {
     // REFACTOR Replace with Vavr Map
-    private final Map<String, Price> pricesByBarcode;
+    private final Map<String, MonetaryAmount> pricesByBarcode;
 
-    public Catalog(Map<String, Price> pricesByBarcode) {
+    public Catalog(Map<String, MonetaryAmount> pricesByBarcode) {
         this.pricesByBarcode = pricesByBarcode;
     }
 
-    public Either<String, Price> lookupBarcode(String barcode) {
+    public Either<String, MonetaryAmount> lookupBarcode(String barcode) {
         return Option.of(pricesByBarcode.get(barcode)).toEither(barcode);
     }
 }

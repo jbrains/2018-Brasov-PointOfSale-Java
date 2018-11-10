@@ -10,8 +10,8 @@ public class SellOneItemTest {
     public void productFound() throws Exception {
         Display display = new Display();
         Sale sale = new Sale(new Catalog(new HashMap<>() {{
-            put("12345", Price.bani(650));
-            put("23456", Price.bani(1275));
+            put("12345", MonetaryAmount.bani(650));
+            put("23456", MonetaryAmount.bani(1275));
         }}), display);
 
         sale.onBarcode("12345");
@@ -23,8 +23,8 @@ public class SellOneItemTest {
     public void anotherProductFound() throws Exception {
         Display display = new Display();
         Sale sale = new Sale(new Catalog(new HashMap<>() {{
-            put("12345", Price.bani(650));
-            put("23456", Price.bani(1275));
+            put("12345", MonetaryAmount.bani(650));
+            put("23456", MonetaryAmount.bani(1275));
         }}), display);
 
         sale.onBarcode("23456");
@@ -36,8 +36,8 @@ public class SellOneItemTest {
     public void productNotFound() throws Exception {
         Display display = new Display();
         Sale sale = new Sale(new Catalog(new HashMap<>() {{
-            put("12345", Price.bani(650));
-            put("23456", Price.bani(1275));
+            put("12345", MonetaryAmount.bani(650));
+            put("23456", MonetaryAmount.bani(1275));
         }}), display);
 
         sale.onBarcode("99999");

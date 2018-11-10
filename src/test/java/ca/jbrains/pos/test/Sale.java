@@ -9,7 +9,7 @@ import java.util.List;
 public class Sale {
     private final Catalog catalog;
     private final Display display;
-    private final List<Price> reservedItems;
+    private final List<MonetaryAmount> reservedItems;
 
     public Sale(Catalog catalog, Display display) {
         this.catalog = catalog;
@@ -33,13 +33,13 @@ public class Sale {
         display.displayProductNotFoundMessage(barcode);
     }
 
-    private void acceptPurchaseRequest(Price price) {
-        display.displayPrice(price);
-        reservedItems.add(price);
+    private void acceptPurchaseRequest(MonetaryAmount monetaryAmount) {
+        display.displayPrice(monetaryAmount);
+        reservedItems.add(monetaryAmount);
     }
 
     public void onTotal() {
-        Price total = EvenMoreFoldable.sum(io.vavr.collection.List.ofAll(reservedItems), Price.monoid());
+        MonetaryAmount total = EvenMoreFoldable.sum(io.vavr.collection.List.ofAll(reservedItems), MonetaryAmount.monoid());
         display.displayTotal(total);
     }
 

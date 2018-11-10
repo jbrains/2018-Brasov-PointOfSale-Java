@@ -10,8 +10,8 @@ public class SellMultipleItemsTest {
     public void noItemsScanned() throws Exception {
         Display display = new Display();
         Sale sale = new Sale(new Catalog(new HashMap<>() {{
-            put("12345", Price.bani(650));
-            put("23456", Price.bani(1275));
+            put("12345", MonetaryAmount.bani(650));
+            put("23456", MonetaryAmount.bani(1275));
         }}), display);
 
         // no items scanned
@@ -25,8 +25,8 @@ public class SellMultipleItemsTest {
     public void oneItemScannedButNoProductsFound() throws Exception {
         Display display = new Display();
         Sale sale = new Sale(new Catalog(new HashMap<>() {{
-            put("12345", Price.bani(650));
-            put("23456", Price.bani(1275));
+            put("12345", MonetaryAmount.bani(650));
+            put("23456", MonetaryAmount.bani(1275));
         }}), display);
 
         sale.onBarcode("::barcode not found::");
@@ -39,8 +39,8 @@ public class SellMultipleItemsTest {
     public void oneItemScannedAndProductFound() throws Exception {
         Display display = new Display();
         Sale sale = new Sale(new Catalog(new HashMap<>() {{
-            put("12345", Price.bani(650));
-            put("23456", Price.bani(1275));
+            put("12345", MonetaryAmount.bani(650));
+            put("23456", MonetaryAmount.bani(1275));
         }}), display);
 
         sale.onBarcode("23456");
@@ -54,10 +54,10 @@ public class SellMultipleItemsTest {
     public void severalItemsScannedAndAllProductsFound() throws Exception {
         Display display = new Display();
         Sale sale = new Sale(new Catalog(new HashMap<>() {{
-            put("12345", Price.bani(650));
-            put("23456", Price.bani(1275));
-            put("34567", Price.bani(3190));
-            put("45678", Price.bani(1766));
+            put("12345", MonetaryAmount.bani(650));
+            put("23456", MonetaryAmount.bani(1275));
+            put("34567", MonetaryAmount.bani(3190));
+            put("45678", MonetaryAmount.bani(1766));
         }}), display);
         sale.onBarcode("23456");
         sale.onBarcode("45678");

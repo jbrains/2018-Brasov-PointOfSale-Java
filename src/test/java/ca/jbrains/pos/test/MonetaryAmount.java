@@ -3,19 +3,19 @@ package ca.jbrains.pos.test;
 import ca.jbrains.pos.test.Sale.Monoid;
 import io.vavr.Function2;
 
-public class Price {
+public class MonetaryAmount {
     public static final PriceMonoid monoid = new PriceMonoid();
     private final int bani;
 
-    public Price(int bani) {
+    public MonetaryAmount(int bani) {
         this.bani = bani;
     }
 
-    public static Price bani(int bani) {
-        return new Price(bani);
+    public static MonetaryAmount bani(int bani) {
+        return new MonetaryAmount(bani);
     }
 
-    public static Price zero() {
+    public static MonetaryAmount zero() {
         return bani(0);
     }
 
@@ -23,8 +23,8 @@ public class Price {
         return bani / 100.0d;
     }
 
-    public Price add(Price that) {
-        return Price.bani(this.bani + that.bani);
+    public MonetaryAmount add(MonetaryAmount that) {
+        return MonetaryAmount.bani(this.bani + that.bani);
     }
 
     @Override
@@ -32,7 +32,7 @@ public class Price {
         return String.format("RON %.2f", inLei());
     }
 
-    public String formatPrice() {
+    public String format() {
         return toString();
     }
 
@@ -44,15 +44,15 @@ public class Price {
         return monoid;
     }
 
-    public static class PriceMonoid implements Monoid<Price> {
+    public static class PriceMonoid implements Monoid<MonetaryAmount> {
         @Override
-        public Price zero() {
-            return Price.zero();
+        public MonetaryAmount zero() {
+            return MonetaryAmount.zero();
         }
 
         @Override
-        public Function2<Price, Price, Price> add() {
-            return Function2.of(Price::add);
+        public Function2<MonetaryAmount, MonetaryAmount, MonetaryAmount> add() {
+            return Function2.of(MonetaryAmount::add);
         }
     }
 }
