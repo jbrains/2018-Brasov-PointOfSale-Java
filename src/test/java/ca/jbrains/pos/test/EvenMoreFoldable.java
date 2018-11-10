@@ -24,7 +24,7 @@ import io.vavr.collection.Foldable;
 public class EvenMoreFoldable {
     /**
      * A generalization of sum(), which allows the client to compute the sum of a Foldable
-     * (usually a collection) by describing identityElement and how to addOperation items.
+     * (usually a collection) by describing identityElement and how to addOperation itemsAsJavaList.
      * <p>
      * You can use this with your Value Objects by writing a Monoid adapter for your type.
      *

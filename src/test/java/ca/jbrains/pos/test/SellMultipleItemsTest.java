@@ -16,7 +16,7 @@ public class SellMultipleItemsTest {
             put("23456", MonetaryAmount.bani(1275));
         }}), purchase, display);
 
-        // no items scanned
+        // no itemsAsJavaList scanned
 
         Assert.assertTrue(purchase.isEmpty());
     }

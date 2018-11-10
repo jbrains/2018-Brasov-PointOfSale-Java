@@ -1,20 +1,20 @@
 package ca.jbrains.pos.test;
 
-import java.util.List;
+import io.vavr.collection.List;
 
 public class Purchase {
-    public final List<MonetaryAmount> items;
+    private List<MonetaryAmount> items;
 
-    public Purchase(io.vavr.collection.List<MonetaryAmount> items) {
-        this.items = items.toJavaList();
+    public Purchase(List<MonetaryAmount> items) {
+        this.items = items;
     }
 
     public void addItemCosting(MonetaryAmount monetaryAmount) {
-        items.add(monetaryAmount);
+        items = items.push(monetaryAmount);
     }
 
     public MonetaryAmount getTotal() {
-        return EvenMoreFoldable.sum(io.vavr.collection.List.ofAll(items), MonetaryAmount.monoid());
+        return EvenMoreFoldable.sum(items, MonetaryAmount.monoid());
     }
 
     public boolean isEmpty() {
