@@ -34,7 +34,7 @@ public class Sale {
     }
 
     private void acceptPurchaseRequest(Price price) {
-        display.displayFormattedPrice(price.formatPrice());
+        display.displayPrice(price);
         reservedItems.add(price);
     }
 

@@ -26,10 +26,6 @@ public class Display {
         return text;
     }
 
-    public void displayFormattedPrice(String priceAsText) {
-        this.text = priceAsText;
-    }
-
     public void displayProductNotFoundMessage(String barcode) {
         this.text = String.format("Product not found: %s", barcode);
     }
@@ -40,5 +36,9 @@ public class Display {
 
     public void displayFormattedTotal(String totalAsText) {
         this.text = String.format("Total: %s", totalAsText);
+    }
+
+    public void displayPrice(Price price) {
+        this.text = price.formatPrice();
     }
 }
