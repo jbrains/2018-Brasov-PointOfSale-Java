@@ -1,8 +1,7 @@
 package ca.jbrains.pos.test;
 
-import io.vavr.collection.HashSet;
 import io.vavr.collection.List;
-import io.vavr.control.Either;
+import io.vavr.control.Option;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -11,6 +10,8 @@ import java.util.HashMap;
 import static org.hamcrest.CoreMatchers.is;
 
 public class SellMultipleItemsTest {
+    private Option<MonetaryAmount> totalDisplayed = Option.none();
+
     @Test
     public void noItemsScanned() throws Exception {
         Display display = new Display();
@@ -94,14 +95,19 @@ public class SellMultipleItemsTest {
 
     @Test
     public void displayTotal() throws Exception {
-        List<MonetaryAmount> itemsQueuedForPurchase = List.of(3691).map(MonetaryAmount::bani);
 
-        Display display = new Display();
-
-        Sale sale = new Sale(null, new Purchase(itemsQueuedForPurchase), display);
+        Sale sale = new Sale(
+                null,
+                new Purchase(List.of(3691).map(MonetaryAmount::bani)),
+                new Display() {
+                    @Override
+                    public void displayTotal(MonetaryAmount total) {
+                        SellMultipleItemsTest.this.totalDisplayed = Option.some(total);
+                    }
+                });
 
         sale.onTotal();
 
-        Assert.assertEquals("Total: RON 36.91", display.getText());
+        Assert.assertThat(totalDisplayed, is(Option.some(MonetaryAmount.bani(3691))));
     }
 }
