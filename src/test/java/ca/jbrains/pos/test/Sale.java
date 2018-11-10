@@ -2,7 +2,6 @@ package ca.jbrains.pos.test;
 
 import io.vavr.Function2;
 import io.vavr.collection.Foldable;
-import io.vavr.control.Either;
 
 import java.util.ArrayList;
 import java.util.List;
