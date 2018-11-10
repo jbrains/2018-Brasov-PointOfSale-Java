@@ -15,6 +15,6 @@ public class Purchase {
     }
 
     public MonetaryAmount getTotal() {
-        return Sale.EvenMoreFoldable.sum(io.vavr.collection.List.ofAll(items), MonetaryAmount.monoid());
+        return EvenMoreFoldable.sum(io.vavr.collection.List.ofAll(items), MonetaryAmount.monoid());
     }
 }

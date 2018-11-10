@@ -38,25 +38,4 @@ public class Sale {
     public void onTotal() {
         display.displayTotal(purchase.getTotal());
     }
-
-    interface Monoid<T> {
-        T zero();
-
-        Function2<T, T, T> add();
-    }
-
-    public static class EvenMoreFoldable {
-        /**
-         * A generalization of sum(), which allows the client to compute the sum of a Foldable
-         * (usually a collection) by describing zero and how to add items.
-         * <p>
-         * You can use this with your Value Objects by writing a Monoid adapter for your type.
-         *
-         * @param items
-         * @param monoid A definition of zero and add
-         */
-        public static <T> T sum(Foldable<T> items, Monoid<T> monoid) {
-            return items.fold(monoid.zero(), monoid.add());
-        }
-    }
 }

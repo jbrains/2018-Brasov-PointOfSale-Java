@@ -1,6 +1,5 @@
 package ca.jbrains.pos.test;
 
-import ca.jbrains.pos.test.Sale.Monoid;
 import io.vavr.Function2;
 
 public class MonetaryAmount {
@@ -46,12 +45,12 @@ public class MonetaryAmount {
 
     public static class PriceMonoid implements Monoid<MonetaryAmount> {
         @Override
-        public MonetaryAmount zero() {
+        public MonetaryAmount identityElement() {
             return MonetaryAmount.zero();
         }
 
         @Override
-        public Function2<MonetaryAmount, MonetaryAmount, MonetaryAmount> add() {
+        public Function2<MonetaryAmount, MonetaryAmount, MonetaryAmount> addOperation() {
             return Function2.of(MonetaryAmount::add);
         }
     }
