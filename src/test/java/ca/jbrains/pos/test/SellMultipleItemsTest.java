@@ -10,45 +10,43 @@ public class SellMultipleItemsTest {
     @Test
     public void noItemsScanned() throws Exception {
         Display display = new Display();
+        Purchase purchase = new Purchase(List.empty());
         Sale sale = new Sale(new Catalog(new HashMap<>() {{
             put("12345", MonetaryAmount.bani(650));
             put("23456", MonetaryAmount.bani(1275));
-        }}), new Purchase(), display);
+        }}), purchase, display);
 
         // no items scanned
 
-        sale.onTotal();
-
-        Assert.assertEquals("Total: RON 0.00", display.getText());
+        Assert.assertTrue(purchase.isEmpty());
     }
 
     @Test
     public void oneItemScannedButNoProductsFound() throws Exception {
         Display display = new Display();
+        Purchase purchase = new Purchase(List.empty());
         Sale sale = new Sale(new Catalog(new HashMap<>() {{
             put("12345", MonetaryAmount.bani(650));
             put("23456", MonetaryAmount.bani(1275));
-        }}), new Purchase(), display);
+        }}), purchase, display);
 
         sale.onBarcode("::barcode not found::");
-        sale.onTotal();
 
-        Assert.assertEquals("Total: RON 0.00", display.getText());
+        Assert.assertTrue(purchase.isEmpty());
     }
 
     @Test
     public void oneItemScannedAndProductFound() throws Exception {
         Display display = new Display();
+        Purchase purchase = new Purchase(List.empty());
         Sale sale = new Sale(new Catalog(new HashMap<>() {{
             put("12345", MonetaryAmount.bani(650));
             put("23456", MonetaryAmount.bani(1275));
-        }}), new Purchase(), display);
+        }}), purchase, display);
 
         sale.onBarcode("23456");
 
-        sale.onTotal();
-
-        Assert.assertEquals("Total: RON 12.75", display.getText());
+        Assert.assertEquals(MonetaryAmount.bani(1275), purchase.getTotal());
     }
 
     @Test
