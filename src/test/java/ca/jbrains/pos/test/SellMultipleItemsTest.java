@@ -14,7 +14,7 @@ public class SellMultipleItemsTest {
 
     @Test
     public void noItemsScanned() throws Exception {
-        Display display = new Display();
+        Display display = new Display(new FormatMessage());
         Purchase purchase = new Purchase(List.empty());
         Sale sale = new Sale(new Catalog(new HashMap<>() {{
             put("12345", MonetaryAmount.bani(650));
@@ -28,7 +28,7 @@ public class SellMultipleItemsTest {
 
     @Test
     public void oneItemScannedButNoProductsFound() throws Exception {
-        Display display = new Display();
+        Display display = new Display(new FormatMessage());
         Purchase purchase = new Purchase(List.empty());
         Sale sale = new Sale(new Catalog(new HashMap<>() {{
             put("12345", MonetaryAmount.bani(650));
@@ -42,7 +42,7 @@ public class SellMultipleItemsTest {
 
     @Test
     public void oneItemScannedAndProductFound() throws Exception {
-        Display display = new Display();
+        Display display = new Display(new FormatMessage());
         Purchase purchase = new Purchase(List.empty());
         Sale sale = new Sale(new Catalog(new HashMap<>() {{
             put("12345", MonetaryAmount.bani(650));
@@ -62,7 +62,7 @@ public class SellMultipleItemsTest {
             put("12345", MonetaryAmount.bani(1275));
             put("23456", MonetaryAmount.bani(1766));
             put("34567", MonetaryAmount.bani(650));
-        }}), purchase, new Display());
+        }}), purchase, new Display(new FormatMessage()));
 
         List.of("12345", "23456", "34567").forEach(sale::onBarcode);
 
@@ -78,7 +78,7 @@ public class SellMultipleItemsTest {
             put("23456", MonetaryAmount.bani(1766));
             put("34567", MonetaryAmount.bani(650));
         }});
-        Sale sale = new Sale(catalog, purchase, new Display());
+        Sale sale = new Sale(catalog, purchase, new Display(new FormatMessage()));
 
         List.of(
                 "12345",
@@ -99,7 +99,7 @@ public class SellMultipleItemsTest {
         Sale sale = new Sale(
                 null,
                 new Purchase(List.of(3691).map(MonetaryAmount::bani)),
-                new Display() {
+                new Display(new FormatMessage()) {
                     @Override
                     public void displayTotal(MonetaryAmount total) {
                         SellMultipleItemsTest.this.totalDisplayed = Option.some(total);

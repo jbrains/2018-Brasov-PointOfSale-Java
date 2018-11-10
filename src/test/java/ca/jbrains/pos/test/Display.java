@@ -20,25 +20,30 @@
 package ca.jbrains.pos.test;
 
 public class Display {
+    private final FormatMessage formatMessage;
     private String text;
+
+    public Display(FormatMessage formatMessage) {
+        this.formatMessage = formatMessage;
+    }
 
     public String getText() {
         return text;
     }
 
     public void displayProductNotFoundMessage(String barcode) {
-        this.text = String.format("Product not found: %s", barcode);
+        this.text = formatMessage.formatProductNotFoundMessage(barcode);
     }
 
     public void displayEmptyBarcodeMessage() {
-        this.text = "Scanning error: empty barcode";
+        this.text = formatMessage.formatEmptyBarcodeMessage();
     }
 
     public void displayPrice(MonetaryAmount monetaryAmount) {
-        this.text = monetaryAmount.format();
+        this.text = formatMessage.formatPrice(monetaryAmount);
     }
 
     public void displayTotal(MonetaryAmount total) {
-        this.text = String.format("Total: %s", total.format());
+        this.text = formatMessage.formatTotal(total);
     }
 }

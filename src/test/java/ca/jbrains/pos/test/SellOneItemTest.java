@@ -8,7 +8,7 @@ import java.util.HashMap;
 public class SellOneItemTest {
     @Test
     public void productFound() throws Exception {
-        Display display = new Display();
+        Display display = new Display(new FormatMessage());
         Sale sale = new Sale(new Catalog(new HashMap<>() {{
             put("12345", MonetaryAmount.bani(650));
             put("23456", MonetaryAmount.bani(1275));
@@ -21,7 +21,7 @@ public class SellOneItemTest {
 
     @Test
     public void anotherProductFound() throws Exception {
-        Display display = new Display();
+        Display display = new Display(new FormatMessage());
         Sale sale = new Sale(new Catalog(new HashMap<>() {{
             put("12345", MonetaryAmount.bani(650));
             put("23456", MonetaryAmount.bani(1275));
@@ -34,7 +34,7 @@ public class SellOneItemTest {
 
     @Test
     public void productNotFound() throws Exception {
-        Display display = new Display();
+        Display display = new Display(new FormatMessage());
         Sale sale = new Sale(new Catalog(new HashMap<>() {{
             put("12345", MonetaryAmount.bani(650));
             put("23456", MonetaryAmount.bani(1275));
@@ -47,7 +47,7 @@ public class SellOneItemTest {
 
     @Test
     public void emptyBarcode() throws Exception {
-        Display display = new Display();
+        Display display = new Display(new FormatMessage());
         Sale sale = new Sale(null, new Purchase(io.vavr.collection.List.empty()), display);
 
         sale.onBarcode("");
