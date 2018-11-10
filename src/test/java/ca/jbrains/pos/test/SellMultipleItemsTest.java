@@ -9,7 +9,7 @@ import java.util.HashMap;
 public class SellMultipleItemsTest {
     @Test
     public void noItemsScanned() throws Exception {
-        SellOneItemTest.Display display = new SellOneItemTest.Display();
+        Display display = new Display();
         Sale sale = new Sale(new Catalog(new HashMap<>() {{
             put("12345", Price.bani(650));
             put("23456", Price.bani(1275));
@@ -24,7 +24,7 @@ public class SellMultipleItemsTest {
 
     @Test
     public void oneItemScannedButNoProductsFound() throws Exception {
-        SellOneItemTest.Display display = new SellOneItemTest.Display();
+        Display display = new Display();
         Sale sale = new Sale(new Catalog(new HashMap<>() {{
             put("12345", Price.bani(650));
             put("23456", Price.bani(1275));
@@ -38,7 +38,7 @@ public class SellMultipleItemsTest {
 
     @Test
     public void oneItemScannedAndProductFound() throws Exception {
-        SellOneItemTest.Display display = new SellOneItemTest.Display();
+        Display display = new Display();
         Sale sale = new Sale(new Catalog(new HashMap<>() {{
             put("12345", Price.bani(650));
             put("23456", Price.bani(1275));
@@ -53,7 +53,7 @@ public class SellMultipleItemsTest {
 
     @Test
     public void severalItemsScannedAndAllProductsFound() throws Exception {
-        SellOneItemTest.Display display = new SellOneItemTest.Display();
+        Display display = new Display();
         Sale sale = new Sale(new Catalog(new HashMap<>() {{
             put("12345", Price.bani(650));
             put("23456", Price.bani(1275));

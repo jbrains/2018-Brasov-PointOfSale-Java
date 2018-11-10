@@ -9,10 +9,10 @@ import java.util.List;
 
 public class Sale {
     private final Catalog catalog;
-    private final SellOneItemTest.Display display;
+    private final Display display;
     private final List<Price> reservedItems;
 
-    public Sale(Catalog catalog, SellOneItemTest.Display display) {
+    public Sale(Catalog catalog, Display display) {
         this.catalog = catalog;
         this.display = display;
         this.reservedItems = new ArrayList<>();
