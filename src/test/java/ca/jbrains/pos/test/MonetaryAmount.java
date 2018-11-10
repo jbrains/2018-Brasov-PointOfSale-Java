@@ -27,6 +27,21 @@ public class MonetaryAmount {
     }
 
     @Override
+    public boolean equals(Object other) {
+        if (other instanceof MonetaryAmount) {
+            MonetaryAmount that = (MonetaryAmount) other;
+            return this.bani == that.bani;
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public int hashCode() {
+        return bani;
+    }
+
+    @Override
     public String toString() {
         return String.format("RON %.2f", inLei());
     }

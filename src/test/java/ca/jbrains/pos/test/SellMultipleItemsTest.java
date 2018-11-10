@@ -1,5 +1,6 @@
 package ca.jbrains.pos.test;
 
+import io.vavr.collection.List;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -52,16 +53,26 @@ public class SellMultipleItemsTest {
 
     @Test
     public void severalItemsScannedAndAllProductsFound() throws Exception {
-        Display display = new Display();
+        Purchase purchase = new Purchase(List.empty());
+
         Sale sale = new Sale(new Catalog(new HashMap<>() {{
-            put("12345", MonetaryAmount.bani(650));
-            put("23456", MonetaryAmount.bani(1275));
-            put("34567", MonetaryAmount.bani(3190));
-            put("45678", MonetaryAmount.bani(1766));
-        }}), new Purchase(), display);
-        sale.onBarcode("23456");
-        sale.onBarcode("45678");
-        sale.onBarcode("12345");
+            put("12345", MonetaryAmount.bani(1275));
+            put("23456", MonetaryAmount.bani(1766));
+            put("34567", MonetaryAmount.bani(650));
+        }}), purchase, new Display());
+
+        List.of("12345", "23456", "34567").forEach(sale::onBarcode);
+
+        Assert.assertEquals(MonetaryAmount.bani(3691), purchase.getTotal());
+    }
+
+    @Test
+    public void displayTotal() throws Exception {
+        List<MonetaryAmount> itemsQueuedForPurchase = List.of(3691).map(MonetaryAmount::bani);
+
+        Display display = new Display();
+
+        Sale sale = new Sale(null, new Purchase(itemsQueuedForPurchase), display);
 
         sale.onTotal();
 

@@ -10,6 +10,10 @@ public class Purchase {
         items = new ArrayList<>();
     }
 
+    public Purchase(io.vavr.collection.List<MonetaryAmount> items) {
+        this.items = items.toJavaList();
+    }
+
     public void addItemCosting(MonetaryAmount monetaryAmount) {
         items.add(monetaryAmount);
     }
