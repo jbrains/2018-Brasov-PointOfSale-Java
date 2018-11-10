@@ -26,13 +26,13 @@ public class Sale {
                 .orElseRun(this::rejectPurchaseRequest);
     }
 
-    private void rejectPurchaseRequest(String barcode) {
-        display.displayProductNotFoundMessage(barcode);
-    }
-
     private void acceptPurchaseRequest(MonetaryAmount itemPrice) {
         display.displayPrice(itemPrice);
         purchase.addItemCosting(itemPrice);
+    }
+
+    private void rejectPurchaseRequest(String barcode) {
+        display.displayProductNotFoundMessage(barcode);
     }
 
     public void onTotal() {
