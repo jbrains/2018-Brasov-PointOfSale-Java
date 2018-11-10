@@ -1,8 +1,5 @@
 package ca.jbrains.pos.test;
 
-import io.vavr.Function2;
-import io.vavr.collection.Foldable;
-
 public class Sale {
     private final Catalog catalog;
     private final Display display;
