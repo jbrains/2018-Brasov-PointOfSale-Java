@@ -40,7 +40,7 @@ public class Sale {
 
     public void onTotal() {
         Price total = EvenMoreFoldable.sum(io.vavr.collection.List.ofAll(reservedItems), Price.monoid());
-        display.displayFormattedTotal(total.formatPrice());
+        display.displayTotal(total);
     }
 
     interface Monoid<T> {

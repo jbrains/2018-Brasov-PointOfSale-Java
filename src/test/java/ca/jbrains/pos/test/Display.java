@@ -34,11 +34,11 @@ public class Display {
         this.text = "Scanning error: empty barcode";
     }
 
-    public void displayFormattedTotal(String totalAsText) {
-        this.text = String.format("Total: %s", totalAsText);
-    }
-
     public void displayPrice(Price price) {
         this.text = price.formatPrice();
+    }
+
+    public void displayTotal(Price total) {
+        this.text = String.format("Total: %s", total.formatPrice());
     }
 }
