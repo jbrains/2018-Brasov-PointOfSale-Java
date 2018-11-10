@@ -3,18 +3,15 @@ package ca.jbrains.pos.test;
 import io.vavr.Function2;
 import io.vavr.collection.Foldable;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Sale {
     private final Catalog catalog;
     private final Display display;
-    private final List<MonetaryAmount> reservedItems;
+    private final Purchase purchase;
 
     public Sale(Catalog catalog, Display display) {
         this.catalog = catalog;
         this.display = display;
-        this.reservedItems = new ArrayList<>();
+        this.purchase = new Purchase();
     }
 
     public void onBarcode(String barcode) {
@@ -33,21 +30,13 @@ public class Sale {
         display.displayProductNotFoundMessage(barcode);
     }
 
-    private void acceptPurchaseRequest(MonetaryAmount monetaryAmount) {
-        display.displayPrice(monetaryAmount);
-        reserveItemForPurchaseCosting(monetaryAmount);
-    }
-
-    private void reserveItemForPurchaseCosting(MonetaryAmount monetaryAmount) {
-        reservedItems.add(monetaryAmount);
+    private void acceptPurchaseRequest(MonetaryAmount itemPrice) {
+        display.displayPrice(itemPrice);
+        purchase.addItemCosting(itemPrice);
     }
 
     public void onTotal() {
-        display.displayTotal(getTotal());
-    }
-
-    private MonetaryAmount getTotal() {
-        return EvenMoreFoldable.sum(io.vavr.collection.List.ofAll(reservedItems), MonetaryAmount.monoid());
+        display.displayTotal(purchase.getTotal());
     }
 
     interface Monoid<T> {
