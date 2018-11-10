@@ -35,12 +35,19 @@ public class Sale {
 
     private void acceptPurchaseRequest(MonetaryAmount monetaryAmount) {
         display.displayPrice(monetaryAmount);
+        reserveItemForPurchaseCosting(monetaryAmount);
+    }
+
+    private void reserveItemForPurchaseCosting(MonetaryAmount monetaryAmount) {
         reservedItems.add(monetaryAmount);
     }
 
     public void onTotal() {
-        MonetaryAmount total = EvenMoreFoldable.sum(io.vavr.collection.List.ofAll(reservedItems), MonetaryAmount.monoid());
-        display.displayTotal(total);
+        display.displayTotal(getTotal());
+    }
+
+    private MonetaryAmount getTotal() {
+        return EvenMoreFoldable.sum(io.vavr.collection.List.ofAll(reservedItems), MonetaryAmount.monoid());
     }
 
     interface Monoid<T> {
