@@ -12,7 +12,7 @@ public class SellMultipleItemsTest {
         Sale sale = new Sale(new Catalog(new HashMap<>() {{
             put("12345", MonetaryAmount.bani(650));
             put("23456", MonetaryAmount.bani(1275));
-        }}), display);
+        }}), new Purchase(), display);
 
         // no items scanned
 
@@ -27,7 +27,7 @@ public class SellMultipleItemsTest {
         Sale sale = new Sale(new Catalog(new HashMap<>() {{
             put("12345", MonetaryAmount.bani(650));
             put("23456", MonetaryAmount.bani(1275));
-        }}), display);
+        }}), new Purchase(), display);
 
         sale.onBarcode("::barcode not found::");
         sale.onTotal();
@@ -41,7 +41,7 @@ public class SellMultipleItemsTest {
         Sale sale = new Sale(new Catalog(new HashMap<>() {{
             put("12345", MonetaryAmount.bani(650));
             put("23456", MonetaryAmount.bani(1275));
-        }}), display);
+        }}), new Purchase(), display);
 
         sale.onBarcode("23456");
 
@@ -58,7 +58,7 @@ public class SellMultipleItemsTest {
             put("23456", MonetaryAmount.bani(1275));
             put("34567", MonetaryAmount.bani(3190));
             put("45678", MonetaryAmount.bani(1766));
-        }}), display);
+        }}), new Purchase(), display);
         sale.onBarcode("23456");
         sale.onBarcode("45678");
         sale.onBarcode("12345");

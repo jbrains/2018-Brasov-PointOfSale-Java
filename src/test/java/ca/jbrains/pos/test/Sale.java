@@ -2,13 +2,13 @@ package ca.jbrains.pos.test;
 
 public class Sale {
     private final Catalog catalog;
-    private final Display display;
     private final Purchase purchase;
+    private final Display display;
 
-    public Sale(Catalog catalog, Display display) {
+    public Sale(Catalog catalog, Purchase purchase, Display display) {
         this.catalog = catalog;
+        this.purchase = purchase;
         this.display = display;
-        this.purchase = new Purchase();
     }
 
     public void onBarcode(String barcode) {

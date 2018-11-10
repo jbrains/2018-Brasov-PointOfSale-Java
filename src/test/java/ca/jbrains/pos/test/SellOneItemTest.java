@@ -12,7 +12,7 @@ public class SellOneItemTest {
         Sale sale = new Sale(new Catalog(new HashMap<>() {{
             put("12345", MonetaryAmount.bani(650));
             put("23456", MonetaryAmount.bani(1275));
-        }}), display);
+        }}), new Purchase(), display);
 
         sale.onBarcode("12345");
 
@@ -25,7 +25,7 @@ public class SellOneItemTest {
         Sale sale = new Sale(new Catalog(new HashMap<>() {{
             put("12345", MonetaryAmount.bani(650));
             put("23456", MonetaryAmount.bani(1275));
-        }}), display);
+        }}), new Purchase(), display);
 
         sale.onBarcode("23456");
 
@@ -38,7 +38,7 @@ public class SellOneItemTest {
         Sale sale = new Sale(new Catalog(new HashMap<>() {{
             put("12345", MonetaryAmount.bani(650));
             put("23456", MonetaryAmount.bani(1275));
-        }}), display);
+        }}), new Purchase(), display);
 
         sale.onBarcode("99999");
 
@@ -48,7 +48,7 @@ public class SellOneItemTest {
     @Test
     public void emptyBarcode() throws Exception {
         Display display = new Display();
-        Sale sale = new Sale(null, display);
+        Sale sale = new Sale(null, new Purchase(), display);
 
         sale.onBarcode("");
 
